@@ -1,13 +1,29 @@
-import { useState } from 'react'
+import {createGlobalStyle} from 'styled-components'
+import { Main } from './components/main'
 
 function App() {
-  const [count, setCount] = useState<number>(0)
 
   return (
     <>
-    <p>s</p>
+      <Global/>
+      <Main/>
     </>
   )
 }
 
 export default App
+
+const Global = createGlobalStyle`
+*{margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Mohave", sans-serif;
+  }
+
+h1,p,h2,h3{
+  color: #ffffff;
+}
+`
+
