@@ -1,22 +1,23 @@
 import styled from "styled-components"
 import "bootstrap/dist/css/bootstrap.css"
-import Img from "../images/home/background-home-desktop.jpg"
+import FirstImg from "../images/home/background-home-desktop.jpg"
+import SecondImg from "../images/destination/background-destination-desktop.jpg"
 import Logo from "../images/shared - Copia/logo.svg"
 import { OptionsBar } from "./bar"
 import { Buttons } from "./buttons"
 import { Homepage } from "./homepage"
 import { useState } from "react"
-
-type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
+import { Destination } from "./destination"
 
 export const Main = ()=>{
+
+    type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
 
     const [activeComponent, setActiveComponent] = useState<ComponentType | null>("ComponentHomePage");
 
     const handleClick = (component:ComponentType) => {
         setActiveComponent(component);
         console.log(activeComponent);
-        
     };
 
     return(
@@ -31,7 +32,12 @@ export const Main = ()=>{
                 <Buttons onClick={() => handleClick('ComponentTechnology')} ><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
             </OptionsBar>
             </div>
-            {activeComponent === 'ComponentHomePage' && <Homepage/>}
+
+            {activeComponent === 'ComponentHomePage' && <Homepage handleClick={handleClick}/>}
+            {activeComponent === 'ComponentDestination' && <Destination/>}
+            {activeComponent === 'ComponentCrew' && <></>}
+            {activeComponent === 'ComponentTechnology' && <></>}
+
         </BackgroundMain>
         </>
     )
@@ -40,7 +46,7 @@ export const Main = ()=>{
 
 const BackgroundMain = styled.div`
 min-height: 100vh;
-background-image: url(${Img});
+background-image: url(${SecondImg});
 background-size: cover;
 background-position: center;
 ` 

@@ -13,5 +13,6 @@ backdrop-filter: blur(16px);
 width: 700px;
 height: 100px;
 padding-right: 200px;
+padding-left: 10px;
 gap: 40px;
 `

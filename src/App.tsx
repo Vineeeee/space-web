@@ -22,8 +22,9 @@ const Global = createGlobalStyle`
   font-family: "Mohave", sans-serif;
   }
 
-h1,p,h2,h3{
+  h1,p,h2,h3,h6,input{
   color: #ffffff;
+  letter-spacing: 3px;
 }
 `
 

@@ -13,7 +13,8 @@ export const Buttons: React.FC<ButtonsProps> = ({ onClick, children})=>{
     )
 }
 
-const Button = styled.button`
+export const Button = styled.button`
 background: none;
 border: none;
+color: #ffffff;
 `
