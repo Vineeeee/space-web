@@ -117,12 +117,12 @@ export const Moon = () => {
     )
 }
 
-const H1noFamily = styled.h1`
+export const H1noFamily = styled.h1`
 font-family: none;
 font-size: 80px;
 `
 
-const DivContainer = styled.div`
+export const DivContainer = styled.div`
 padding: 40px 0;
 line-height: 18px;
 `

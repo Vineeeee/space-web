@@ -8,6 +8,7 @@ import { Buttons } from "./buttons"
 import { Homepage } from "./homepage"
 import { useState } from "react"
 import { Destination } from "./destination"
+import { Crew } from "./crew"
 
 export const Main = ()=>{
 
@@ -35,7 +36,7 @@ export const Main = ()=>{
 
             {activeComponent === 'ComponentHomePage' && <Homepage handleClick={handleClick}/>}
             {activeComponent === 'ComponentDestination' && <Destination/>}
-            {activeComponent === 'ComponentCrew' && <></>}
+            {activeComponent === 'ComponentCrew' && <Crew/>}
             {activeComponent === 'ComponentTechnology' && <></>}
 
         </BackgroundMain>

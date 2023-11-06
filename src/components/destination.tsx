@@ -22,7 +22,7 @@ export const Destination = () => {
     )
 } 
 
-const DivContent = styled.div`
+export const DivContent = styled.div`
 margin: 60px 0 0 150px;
 
 `
@@ -30,6 +30,6 @@ margin: 60px 0 0 150px;
 const H3Title = styled.h3`
 `
 
-const SpanNumber = styled.span`
+export const SpanNumber = styled.span`
 color: #808080;
 `
