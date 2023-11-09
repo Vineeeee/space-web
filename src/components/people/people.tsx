@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css"
 import { useState, useEffect } from "react"
-import { DivContainer, H1noFamily } from "../planets/moon";
-import { Button } from "../buttons";
+import { H1noFamily } from "../planets/moon";
 import FirstPeopleImg from "../../images/crew/image-anousheh-ansari.png"
 import SecondPeopleImg from "../../images/crew/image-douglas-hurley.png"
 import ThirdPeopleImg from "../../images/crew/image-mark-shuttleworth.png"

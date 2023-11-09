@@ -1,12 +1,12 @@
-import {createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 import { Main } from './components/main'
 
 function App() {
 
   return (
     <>
-      <Global/>
-      <Main/>
+      <Global />
+      <Main />
     </>
   )
 }

@@ -1,7 +1,8 @@
 import styled, {keyframes} from "styled-components"
 import "bootstrap/dist/css/bootstrap.css"
+import SecondImg from '../images/destination/background-destination-desktop.jpg'
 
-export const Homepage = ({ handleClick }: { handleClick: (component: ComponentType) => void })=> {
+export const Homepage = ({ handleClick }: { handleClick: (component: ComponentType, background: string) => void })=> {
 
     return(
         <div className="d-flex">
@@ -13,7 +14,7 @@ export const Homepage = ({ handleClick }: { handleClick: (component: ComponentTy
                 Well sit back, and relax because we'll give you a truly out of 
                 this world experience!</p>
             </ContainerWordsHomePage>
-            <ButtonExplore onClick={() => handleClick('ComponentDestination')}>EXPLORE</ButtonExplore>
+            <ButtonExplore onClick={() => handleClick('ComponentDestination', SecondImg)}>EXPLORE</ButtonExplore>
             </div>
     )
 }
