@@ -1,11 +1,13 @@
 import "bootstrap/dist/css/bootstrap.css"
 import { useState, useEffect } from "react"
-import { H1noFamily } from "../planets/moon";
 import FirstPeopleImg from "../../images/crew/image-anousheh-ansari.png"
 import SecondPeopleImg from "../../images/crew/image-douglas-hurley.png"
 import ThirdPeopleImg from "../../images/crew/image-mark-shuttleworth.png"
 import FouthPeopleImg from "../../images/crew/image-victor-glover.png"
-import styled from "styled-components";
+import { fetchData } from "../function";
+import { Loading } from "../loading";
+import { DivContainer, H1noFamily, H3NoFont, ImgCrew, Paragraph } from "./styledComponents";
+import { Button } from "./button"
 
 type Crew = {
     id: number;
@@ -21,41 +23,38 @@ export const People = () => {
     const [selectedCrew, setSelectedCrew] = useState<string>("Douglas Hurley");
     const [Img, setImg] = useState<string>(FouthPeopleImg)
 
-    useEffect(() => {
-        async function fetchData() {
+    useEffect(() => {fetchData<Crew[]>("crew", setData, setLoading, setError)}, [])
 
+    const handleButtonClick = (crewName: string) => {
 
-            try {
-                const response = await fetch('https://api-planets-ylxj.onrender.com/crew')
-                if (!response.ok) {
-                    throw new Error('Erro ao buscar os dados')
-                }
-                const data = await response.json()
-                setData(data)
-                console.log(data);
+        setSelectedCrew(crewName);
 
-            } catch (error) {
-                if (error instanceof Error) {
-                    setError(error);
-                } else {
-                    setError(new Error('Erro desconhecido'));
-                }
-            } finally {
-                setLoading(false)
-            }
+        switch (crewName) {
+            case "Douglas Hurley":
+                setImg(FouthPeopleImg);
+                break;
+            case "Mark Shuttleworth":
+                setImg(ThirdPeopleImg);
+                break;
+            case "Victor Glover":
+                setImg(SecondPeopleImg);
+                break;
+            case "Anousheh Ansari":
+                setImg(FirstPeopleImg);
+                break;
+            default:
+                setImg(FirstPeopleImg);
         }
-        fetchData()
-
-    }, [])
+    };
 
     return (
         <div>
             {loading ? (
-                <div className="spinner-border text-white"></div>
+                <Loading />
             ) : error ? (
                 <p>Erro: {error.message}</p>
             ) : (
-                <div className="d-flex ">
+                <DivContainer className="d-flex ">
 
                     <div className="d-flex flex-column">
                         <ul>
@@ -63,64 +62,22 @@ export const People = () => {
                                 crew.name === selectedCrew).map((crew: Crew) => (
                                     <div key={crew.id}>
                                         <H3NoFont>{crew.role.toLocaleUpperCase()}</H3NoFont>
-                                        <H1noFamily style={{ fontSize: "40px" }}>{selectedCrew.toLocaleUpperCase()}</H1noFamily>
-                                        <p style={{ width: "565px" }} className=" pb-4 pt-3 mb-3">{crew.bio}</p>
+                                        <H1noFamily>{selectedCrew.toLocaleUpperCase()}</H1noFamily>
+                                        <Paragraph className=" pb-4 pt-3 mb-3">{crew.bio}</Paragraph>
                                     </div>
                                 ))}
                         </ul>
                         <ul className="d-flex">{data.crew.map((crew: Crew) => (
                             <li>
                                 <div key={crew.id} className="me-3">
-                                    <ButtonCrew onClick={() => {
-                                        setSelectedCrew(crew.name);
-
-                                        switch (crew.name) {
-                                            case "Douglas Hurley":
-                                                setImg(FouthPeopleImg);
-                                                break;
-                                            case "Mark Shuttleworth":
-                                                setImg(ThirdPeopleImg);
-                                                break;
-                                            case "Victor Glover":
-                                                setImg(SecondPeopleImg);
-                                                break;
-                                            case "Anousheh Ansari":
-                                                setImg(FirstPeopleImg);
-                                                break;
-                                            default:
-                                                setImg(FirstPeopleImg);
-                                        }
-                                    }}>
-                                    </ButtonCrew>
+                                    <Button className={selectedCrew === crew.name ? 'active' : ''} onClick={() => {handleButtonClick(crew.name)}}/>
                                 </div>
                             </li>
                         ))}</ul>
                     </div>
-                    <div className="d-flex ">
-                        <ImgCrew src={Img} />
-                    </div>
-
-                </div>
+                    <ImgCrew src={Img} />
+                </DivContainer>
             )}
         </div>
     )
 }
-
-const H3NoFont = styled.h3`
-margin-top: 50px;
-font-family: none;
-color: #8a8a8a;
-
-`
-
-const ImgCrew = styled.img`
-max-height: 410px;
-margin-left: 150px;
-`
-
-const ButtonCrew = styled.button`
-width: 15px;
-height: 15px;
-border: none;
-border-radius: 50%;
-`
