@@ -6,7 +6,7 @@ import ThirdPeopleImg from "../../images/crew/image-mark-shuttleworth.png"
 import FouthPeopleImg from "../../images/crew/image-victor-glover.png"
 import { fetchData } from "../function";
 import { Loading } from "../loading";
-import { DivContainer, H1noFamily, H3NoFont, ImgCrew, Paragraph } from "./styledComponents";
+import { DivContainer, H1noFamily, H3NoFont, ImgCrew, Paragraph, UlButtons } from "./styledComponents";
 import { Button } from "./button"
 
 type Crew = {
@@ -54,26 +54,25 @@ export const People = () => {
             ) : error ? (
                 <p>Erro: {error.message}</p>
             ) : (
-                <DivContainer className="d-flex ">
-
-                    <div className="d-flex flex-column">
-                        <ul>
+                <DivContainer>
+                    <div>
+                        <ul className="p-0">
                             {data.crew.filter((crew: Crew) =>
                                 crew.name === selectedCrew).map((crew: Crew) => (
-                                    <div key={crew.id}>
+                                    <li key={crew.id}>
                                         <H3NoFont>{crew.role.toLocaleUpperCase()}</H3NoFont>
                                         <H1noFamily>{selectedCrew.toLocaleUpperCase()}</H1noFamily>
-                                        <Paragraph className=" pb-4 pt-3 mb-3">{crew.bio}</Paragraph>
-                                    </div>
+                                        <Paragraph className="pb-4 pt-3 mb-3">{crew.bio}</Paragraph>
+                                    </li>
                                 ))}
                         </ul>
-                        <ul className="d-flex">{data.crew.map((crew: Crew) => (
+                        <UlButtons>{data.crew.map((crew: Crew) => (
                             <li>
                                 <div key={crew.id} className="me-3">
                                     <Button className={selectedCrew === crew.name ? 'active' : ''} onClick={() => {handleButtonClick(crew.name)}}/>
                                 </div>
                             </li>
-                        ))}</ul>
+                        ))}</UlButtons>
                     </div>
                     <ImgCrew src={Img} />
                 </DivContainer>

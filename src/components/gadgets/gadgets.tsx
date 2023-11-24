@@ -4,8 +4,9 @@ import FirstTechnologyImg from "../../images/technology/image-launch-vehicle-por
 import SecondTechnologyImg from "../../images/technology/image-space-capsule-portrait.jpg"
 import ThirdTechnologyImg from "../../images/technology/image-spaceport-portrait.jpg"
 import { fetchData } from "../function";
-import { ImgTechnology, ParagraphDescription } from "./styledComponents"
+import { DivContent, DivContent2, DivImg, ImgTechnology, LiButtons, ParagraphDescription, UlButtons, UlButtons2 } from "./styledComponents"
 import { Button } from "./button"
+import { Loading } from "../loading"
 
 type Technology = {
     id: number;
@@ -45,28 +46,24 @@ export const Gadgets = () => {
 
     };
     return (
-        <div>
+        <>
             {loading ? (
-                <div className="d-flex justify-content-center mt-5">
-                    <div className="spinner-border text-white justify-content-center"></div>
-                </div>
+                <Loading/>
             ) : error ? (
                 <p>Erro: {error.message}</p>
             ) : (
-                <div className="d-flex align-items-center flex-wrap">
-
-                    <div className="d-flex ">
-                        <ul className="d-flex flex-column">{data.tecnology.map((technology: Technology) => (
-                            <li>
-                                <div className="mb-4 ">
+                <DivContent>
+                    <DivContent2>
+                        <UlButtons>{data.tecnology.map((technology: Technology) => (
+                            <LiButtons>
                                     <Button className={selectedTechnology === technology.name ? 'active' : ''} 
                                     onClick={() => {handleButtonClick(technology.name)}}>
                                         {technology.id}
                                     </Button>
-                                </div>
-                            </li>
-                        ))}</ul>
-                        <ul>
+                            </LiButtons>
+                        ))}
+                        </UlButtons>
+                        <UlButtons2>
                             {data.tecnology.filter((technology: Technology) =>
                                 technology.name === selectedTechnology).map((technology: Technology) => (
                                     <div key={technology.id}>
@@ -75,14 +72,14 @@ export const Gadgets = () => {
                                         <ParagraphDescription>{technology.description}</ParagraphDescription>
                                     </div>
                                 ))}
-                        </ul>
-                    </div>
-                    <div className="d-flex ms-5">
+                        </UlButtons2>
+                    </DivContent2>
+                    <DivImg>
                         <ImgTechnology src={Img}/>
-                    </div>
+                    </DivImg>
 
-                </div>
+                </DivContent>
             )}
-        </div>
+        </>
     )
 }

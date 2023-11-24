@@ -11,6 +11,5 @@ export const Loading = () => {
 }
 
 const DivLoading = styled.div`
-margin-top: 150px;
-margin-right: 140px;
+height: 100vh;
 `

@@ -8,7 +8,7 @@ import { Destination } from "../destination";
 import { Buttons } from "../buttons"
 import { fetchData } from "../function"
 import { Loading } from "../loading"
-import { DivContainer, H1noFamily } from "./styledComponents"
+import { DivContainer, DivText, H1noFamily, H3Details, LiButtons, Paragraph, ParagraphDetails } from "./styledComponents"
 
 type Destination = {
     id: number;
@@ -27,7 +27,7 @@ export const Planets = () => {
     const [selectedDestination, setSelectedDestination] = useState<NameSelected>("Moon");
     const [Img, setImg] = useState<string>(MoonImg)
 
-    useEffect(() => {fetchData<Destination[]>("destination", setData, setLoading, setError)}, [])
+    useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [])
 
     const handleButtonClick = (destinationName: NameSelected) => {
 
@@ -59,44 +59,40 @@ export const Planets = () => {
             ) : error ? (
                 <p>Erro: {error.message}</p>
             ) : (
-                <DivContainer className="d-flex">
-                    <img src={Img} className={`me-5`} alt={selectedDestination} />
-                    <div className="d-flex flex-column ps-5">
+                <DivContainer>
+                    <img src={Img} className={`w-50`} alt={selectedDestination} />
+                    <DivText className="d-flex flex-column pt-5">
                         <ul className="d-flex">{data.destinations.map((destination: Destination) => (
-                            <li>
-                                <div key={destination.id} className="me-5">
-                                    <Buttons className={selectedDestination === destination.name ? 'active' : ''} onClick={() => {
-                                        handleButtonClick(destination.name)
-                                    }}>
-                                        {destination.name.toLocaleUpperCase()}
-                                    </Buttons>
-                                </div>
-                            </li>
+                                <LiButtons key={destination.id}>
+                                        <Buttons className={selectedDestination === destination.name ? 'active' : ''} onClick={() => {
+                                            handleButtonClick(destination.name)
+                                        }}>
+                                            {destination.name.toLocaleUpperCase()}
+                                        </Buttons>
+                                </LiButtons>
                         ))}</ul>
-                        <ul>
-                            <H1noFamily>{selectedDestination.toLocaleUpperCase()}</H1noFamily>
-                            {data.destinations.filter((destination: Destination) =>
-                                destination.name === selectedDestination).map((destination: Destination) => (
-                                    <div key={destination.id}>
-                                        <p className="w-50 pb-4">{destination.description}</p>
-                                        <hr className="text-bg-danger w-50" />
-                                        <div className="d-flex">
-                                            <div className="me-5">
-                                                <p>AVG. DISTANCE</p>
-                                                <h3>{destination.distance.toLocaleUpperCase()}</h3>
-                                            </div>
-                                            <div className="d-flex flex-column">
-                                                <p>EST. TRAVEL TIME</p>
-                                                <h3>{destination.travel.toLocaleUpperCase()}</h3>
-                                            </div>
+                        <H1noFamily>{selectedDestination.toLocaleUpperCase()}</H1noFamily>
+                        {data.destinations.filter((destination: Destination) =>
+                            destination.name === selectedDestination).map((destination: Destination) => (
+                                <DivText key={destination.id}>
+                                    <Paragraph className="w-50 pb-4">{destination.description}</Paragraph>
+                                    <hr className="text-bg-danger w-50" />
+                                    <div className="d-flex">
+                                        <div className="me-5">
+                                            <ParagraphDetails>AVG. DISTANCE</ParagraphDetails>
+                                            <H3Details>{destination.distance.toLocaleUpperCase()}</H3Details>
+                                        </div>
+                                        <div className="d-flex flex-column">
+                                            <ParagraphDetails>EST. TRAVEL TIME</ParagraphDetails>
+                                            <H3Details>{destination.travel.toLocaleUpperCase()}</H3Details>
                                         </div>
                                     </div>
-                                ))}
-                        </ul>
-                    </div>
+                                </DivText>
+                            ))}
+                    </DivText>
                 </DivContainer>
-            )}
-        </div>
     )
 }
-
+        </div >
+    )
+}
