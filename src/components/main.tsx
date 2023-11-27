@@ -44,10 +44,10 @@ export const Main = () => {
     };
 
     return (<>
-        <BackgroundMain backgroundImage={backgroundImage} 
-                        backgroundImgMobile={backgroundMobile}
-                        backgroundTablet={backgroundTablet}
-                        >
+        <BackgroundMain backgroundImage={backgroundImage}
+            backgroundImgMobile={backgroundMobile}
+            backgroundTablet={backgroundTablet}
+        >
             <div className="d-flex p-0 pt-5 container-fluid justify-content-between">
                 <ImgLogo src={Logo} />
                 <OptionsBar>
@@ -79,33 +79,32 @@ export const Main = () => {
                         }} />
                     </DivHamburguer>
                 </OptionsBar>
-                
+
             </div>
             <Menu toggled={isOpen} isClose={isClose}>
-        <Buttons onClick={() => handleClick('ComponentHomePage', FirstImg, FirstImgMobile, FirstImgTablet)}
-                            className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
+                <Buttons onClick={() => handleClick('ComponentHomePage', FirstImg, FirstImgMobile, FirstImgTablet)}
+                    className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
 
-                        <Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
-                            className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
+                <Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
+                    className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
 
-                        <Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
-                            className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
+                <Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
+                    className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
 
-                        <Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
-                            className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
-        </Menu>
-        
+                <Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
+                    className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
+            </Menu>
+
             {activeComponent === 'ComponentHomePage' && <Homepage handleClick={handleClick} />}
             {activeComponent === 'ComponentDestination' && <Destination />}
             {activeComponent === 'ComponentCrew' && <Crew />}
             {activeComponent === 'ComponentTechnology' && <Technology />}
 
         </BackgroundMain>
-        
+
     </>
     )
 }
-
 
 const BackgroundMain = styled.div<{ backgroundImage: string; backgroundImgMobile: string; backgroundTablet: string }>`
 min-height: 100vh;
@@ -164,7 +163,7 @@ display: none;
     justify-content: center;
     gap:15px;
     z-index:1;
-    animation: ${props => props.isClose ? 
-    slideOutEllipticTopBack : slideOutEllipticTop} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: ${props => props.isClose ?
+        slideOutEllipticTopBack : slideOutEllipticTop} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   }
 `
