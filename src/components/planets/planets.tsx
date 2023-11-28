@@ -30,27 +30,25 @@ export const Planets = () => {
     useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [])
 
     const handleButtonClick = (destinationName: NameSelected) => {
+    setSelectedDestination(destinationName);
 
-        setSelectedDestination(destinationName);
-
-        switch (destinationName) {
-            case "Moon":
-                setImg(MoonImg);
-                break;
-            case "Europa":
-                setImg(EuropaImg);
-                break;
-            case "Mars":
-                setImg(MarsImg);
-                break;
-            case "Titan":
-                setImg(TitanImg);
-                break;
-            default:
-                setImg(MoonImg);
-        }
-
-    };
+    switch (destinationName) {
+        case "Moon":
+            setImg(MoonImg);
+            break;
+        case "Europa":
+            setImg(EuropaImg);
+            break;
+        case "Mars":
+            setImg(MarsImg);
+            break;
+        case "Titan":
+            setImg(TitanImg);
+            break;
+        default:
+            setImg(MoonImg);
+    }
+};
 
     return (
         <div>
@@ -62,7 +60,7 @@ export const Planets = () => {
                 <DivContainer>
                     <img src={Img} className={`w-50`} alt={selectedDestination} />
                     <DivText className="d-flex flex-column pt-5">
-                        <ul className="d-flex">{data.destinations.map((destination: Destination) => (
+                        <ul className="d-flex">{((data as any)['destinations'] as Destination[]).map((destination: Destination) => (
                                 <LiButtons key={destination.id}>
                                         <Buttons className={selectedDestination === destination.name ? 'active' : ''} onClick={() => {
                                             handleButtonClick(destination.name)
@@ -72,7 +70,7 @@ export const Planets = () => {
                                 </LiButtons>
                         ))}</ul>
                         <H1noFamily>{selectedDestination.toLocaleUpperCase()}</H1noFamily>
-                        {data.destinations.filter((destination: Destination) =>
+                        {((data as any)['destinations'] as Destination[]).filter((destination: Destination) =>
                             destination.name === selectedDestination).map((destination: Destination) => (
                                 <DivText key={destination.id}>
                                     <Paragraph className="w-50 pb-4">{destination.description}</Paragraph>

@@ -83,16 +83,16 @@ export const Main = () => {
             </div>
             <Menu toggled={isOpen} isClose={isClose}>
                 <Buttons onClick={() => handleClick('ComponentHomePage', FirstImg, FirstImgMobile, FirstImgTablet)}
-                    className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
+    className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
 
-                <Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
-                    className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
+<Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
+    className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
 
-                <Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
-                    className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
+<Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
+    className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
 
-                <Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
-                    className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
+<Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
+    className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
             </Menu>
 
             {activeComponent === 'ComponentHomePage' && <Homepage handleClick={handleClick} />}

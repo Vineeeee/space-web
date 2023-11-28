@@ -23,7 +23,8 @@ export const People = () => {
     const [selectedCrew, setSelectedCrew] = useState<string>("Douglas Hurley");
     const [Img, setImg] = useState<string>(FouthPeopleImg)
 
-    useEffect(() => {fetchData<Crew[]>("crew", setData, setLoading, setError)}, [])
+    useEffect(() => {console.log(data);
+    fetchData<Crew[]>("crew", setData, setLoading, setError)}, [])
 
     const handleButtonClick = (crewName: string) => {
 
@@ -57,7 +58,7 @@ export const People = () => {
                 <DivContainer>
                     <div>
                         <ul className="p-0">
-                            {data.crew.filter((crew: Crew) =>
+                            {((data as any)['crew'] as Crew[]).filter((crew: Crew) =>
                                 crew.name === selectedCrew).map((crew: Crew) => (
                                     <li key={crew.id}>
                                         <H3NoFont>{crew.role.toLocaleUpperCase()}</H3NoFont>
@@ -66,7 +67,7 @@ export const People = () => {
                                     </li>
                                 ))}
                         </ul>
-                        <UlButtons>{data.crew.map((crew: Crew) => (
+                        <UlButtons>{((data as any)['crew'] as Crew[]).map((crew: Crew) => (
                             <li>
                                 <div key={crew.id} className="me-3">
                                     <Button className={selectedCrew === crew.name ? 'active' : ''} onClick={() => {handleButtonClick(crew.name)}}/>

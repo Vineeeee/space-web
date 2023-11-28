@@ -54,7 +54,7 @@ export const Gadgets = () => {
             ) : (
                 <DivContent>
                     <DivContent2>
-                        <UlButtons>{data.tecnology.map((technology: Technology) => (
+                        <UlButtons>{((data as any)['tecnology'] as Technology[]).map((technology: Technology) => (
                             <LiButtons>
                                     <Button className={selectedTechnology === technology.name ? 'active' : ''} 
                                     onClick={() => {handleButtonClick(technology.name)}}>
@@ -64,7 +64,7 @@ export const Gadgets = () => {
                         ))}
                         </UlButtons>
                         <UlButtons2>
-                            {data.tecnology.filter((technology: Technology) =>
+                            {((data as any)['tecnology'] as Technology[]).filter((technology: Technology) =>
                                 technology.name === selectedTechnology).map((technology: Technology) => (
                                     <div key={technology.id}>
                                         <p>THE TECNOLOGY...</p>
