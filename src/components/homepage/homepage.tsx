@@ -3,8 +3,9 @@ import SecondImg from '../../images/destination/background-destination-desktop.j
 import { ButtonExplore, ContainerWordsHomePage, DivContainer, H1HomePage, Paragraph } from "./styledComponents"
 import SecondImgMobile from "../../images/destination/background-destination-mobile.jpg"
 import SecondImgTablet from "../../images/destination/background-destination-tablet.jpg"
+import {ComponentType} from "../main"
 
-export const Homepage = ({ handleClick }: { handleClick: (component: string, background: string, backgroundMobile: string, backgroundTablet: string) => void })=> {
+export const Homepage = ({ handleClick }: { handleClick: (component: ComponentType, background: string, backgroundMobile: string, backgroundTablet: string) => void })=> {
 
     return(
         <DivContainer className="d-flex">

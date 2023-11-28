@@ -18,18 +18,17 @@ type Destination = {
     travel: string;
 };
 
-type NameSelected = 'Moon' | 'Mars' | 'Europa' | 'Titan';
 
 export const Planets = () => {
     const [data, setData] = useState<Destination[]>([])
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
-    const [selectedDestination, setSelectedDestination] = useState<NameSelected>("Moon");
+    const [selectedDestination, setSelectedDestination] = useState<string>("Moon");
     const [Img, setImg] = useState<string>(MoonImg)
 
     useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [])
 
-    const handleButtonClick = (destinationName: NameSelected) => {
+    const handleButtonClick = (destinationName: string) => {
     setSelectedDestination(destinationName);
 
     switch (destinationName) {

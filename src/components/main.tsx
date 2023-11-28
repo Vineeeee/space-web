@@ -23,9 +23,9 @@ import { Technology } from "./technology"
 import { Squash as Hamburger } from 'hamburger-react'
 import { slideOutEllipticTop, slideOutEllipticTopBack } from "./fadeIn"
 
-export const Main = () => {
+export type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
 
-    type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
+export const Main = () => {
 
     const [activeComponent, setActiveComponent] = useState<ComponentType>("ComponentHomePage");
     const [backgroundImage, setBackgroundImage] = useState<string>(FirstImg)
