@@ -26,7 +26,7 @@ export const Planets = () => {
     const [selectedDestination, setSelectedDestination] = useState<string>("Moon");
     const [Img, setImg] = useState<string>(MoonImg)
 
-    useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [])
+    useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [data])
 
     const handleButtonClick = (destinationName: string) => {
     setSelectedDestination(destinationName);

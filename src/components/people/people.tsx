@@ -24,7 +24,7 @@ export const People = () => {
     const [Img, setImg] = useState<string>(FouthPeopleImg)
 
     useEffect(() => {console.log(data);
-    fetchData<Crew[]>("crew", setData, setLoading, setError)}, [])
+    fetchData<Crew[]>("crew", setData, setLoading, setError)}, [data])
 
     const handleButtonClick = (crewName: string) => {
 

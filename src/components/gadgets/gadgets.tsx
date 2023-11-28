@@ -23,7 +23,7 @@ export const Gadgets = () => {
 
     useEffect(() => {
         fetchData<Technology[]>("tecnology", setData, setLoading, setError)
-    }, [])
+    }, [data])
 
     const handleButtonClick = (technologyName: string) => {
 
