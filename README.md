@@ -19,21 +19,37 @@ No buttons.tsx e bar.tsx retornam os botoes e a barra que será usado no main.ts
 
 Na pasta images tem as imagens que serão usadas na aplicação.
 
-No input.js retorna select e option com os valores dos tipos de pokemon e tbm retorna uma função filtro passada através do props da home.js
+Nos destination.tsx, crew.tsx e technology.tsx retornam respectivamente os componentes planets.tsx, people.tsx e gadgets.tsx que são componentes referentes de cada aba
 
-No theme-toggler-button.js retorna um botão onde muda o tema do site para claro ou escuro utilizando o theme-context
-
-No variables-styled-components.js retorna estilos utilizando styled components para serem usados nos componentes home,js e pokemon-page
-
-Ferramentas utilizadas, e o por que estas foram escolhidas para a realização do desafio e decisões adotadas durante o planejamento e execução do desafio, justificando-as
+## Ferramentas utilizadas, e o por que estas foram escolhidas para a realização do desafio e decisões adotadas durante o planejamento e execução do desafio, justificando-as
 home.js
-No home.js eu utilizei duas funções para retornar um pokemon de cada:
+Na function.ts retorna uma função que requisita a API que criei:
 
-async function getingPokemonsUrl(offset, limit){
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}/`)
-    const pokemons = await response.json()
-    const url = pokemons.results.map((params)=>params.url)
-    return url
+type Content = "destination" | "crew" | "tecnology"
+
+    export async function fetchData<T>(content: Content,
+        setData: React.Dispatch<React.SetStateAction<T>>,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+        setError: React.Dispatch<React.SetStateAction<Error | null>>) {
+
+    try {
+        const response = await fetch(`https://api-planets-ylxj.onrender.com/${content}`)
+        if (!response.ok) {
+            throw new Error('Erro ao buscar os dados')
+        }
+        const data = await response.json()
+        setData(data)
+        console.log(data);
+
+    } catch (error) {
+        if (error instanceof Error) {
+            setError(error);
+        } else {
+            setError(new Error('Erro desconhecido'));
+        }
+    } finally {
+        setLoading(false)
+    }
 }
 Na primeira função ela retorna a url com um parametro offset que seria o numero de id que deveria começar a contar os pokemons da lista e o limit que seria o numero maximo de pokemon para aparecer:
 
