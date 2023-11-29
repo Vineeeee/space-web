@@ -53,8 +53,10 @@ type Content = "destination" | "crew" | "tecnology"
     }
 }
 ```
+No type Content utilizei somente esses 3 tipos pois no server que fiz deploy (https://api-planets-ylxj.onrender.com/) pode ser usado crew, tecnology e destination para acessar o conteudo do respectivo tema:
 
-Na primeira função ela retorna a url com um parametro offset que seria o numero de id que deveria começar a contar os pokemons da lista e o limit que seria o numero maximo de pokemon para aparecer:
+![image](https://github.com/Vineeeee/space-web/assets/129313151/3f347293-4468-4352-81ca-30fd20829358)
+
 
 {"count":1281,"next":"https://pokeapi.co/api/v2/pokemon/?offset=10&limit=10","previous":null,"results":[{"name":"bulbasaur","url":"https://pokeapi.co/api/v2/pokemon/1/"},{"name":"ivysaur","url":"https://pokeapi.co/api/v2/pokemon/2/"},{"name":"venusaur","url":"https://pokeapi.co/api/v2/pokemon/3/"},{"name":"charmander","url":"https://pokeapi.co/api/v2/pokemon/4/"},{"name":"charmeleon","url":"https://pokeapi.co/api/v2/pokemon/5/"},{"name":"charizard","url":"https://pokeapi.co/api/v2/pokemon/6/"},{"name":"squirtle","url":"https://pokeapi.co/api/v2/pokemon/7/"},{"name":"wartortle","url":"https://pokeapi.co/api/v2/pokemon/8/"},{"name":"blastoise","url":"https://pokeapi.co/api/v2/pokemon/9/"},{"name":"caterpie","url":"https://pokeapi.co/api/v2/pokemon/10/"}]}
 A função getingPokemonsUrl retorna um mapeamento do codigo acima só que pegando somente a url que é a url de cada pokemon.
