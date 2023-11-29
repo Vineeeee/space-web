@@ -21,8 +21,8 @@ Na pasta images tem as imagens que serão usadas na aplicação.
 
 Nos destination.tsx, crew.tsx e technology.tsx retornam respectivamente os componentes planets.tsx, people.tsx e gadgets.tsx que são componentes referentes de cada aba
 
-## Ferramentas utilizadas, e o por que estas foram escolhidas para a realização do desafio e decisões adotadas durante o planejamento e execução do desafio, justificando-as
-home.js
+## Ferramentas utilizadas.
+
 Na function.ts retorna uma função que requisita a API que criei:
 
 ```
@@ -57,6 +57,34 @@ No type Content utilizei somente esses 3 tipos pois no server que fiz deploy (ht
 
 ![image](https://github.com/Vineeeee/space-web/assets/129313151/3f347293-4468-4352-81ca-30fd20829358)
 
+No parametro abaixo utilizei o T para que seja usado qualquer tipo de estado no parâmetro.
+
+```
+setData: React.Dispatch<React.SetStateAction<T>>
+```
+
+O esquema abaixo é de teste e erro:
+
+```
+try {
+        const response = await fetch(`https://api-planets-ylxj.onrender.com/${content}`)
+        if (!response.ok) {
+            throw new Error('Erro ao buscar os dados')
+        }
+        const data = await response.json()
+        setData(data)
+        console.log(data);
+
+    } catch (error) {
+        if (error instanceof Error) {
+            setError(error);
+        } else {
+            setError(new Error('Erro desconhecido'));
+        }
+    } finally {
+        setLoading(false)
+    }
+```
 
 {"count":1281,"next":"https://pokeapi.co/api/v2/pokemon/?offset=10&limit=10","previous":null,"results":[{"name":"bulbasaur","url":"https://pokeapi.co/api/v2/pokemon/1/"},{"name":"ivysaur","url":"https://pokeapi.co/api/v2/pokemon/2/"},{"name":"venusaur","url":"https://pokeapi.co/api/v2/pokemon/3/"},{"name":"charmander","url":"https://pokeapi.co/api/v2/pokemon/4/"},{"name":"charmeleon","url":"https://pokeapi.co/api/v2/pokemon/5/"},{"name":"charizard","url":"https://pokeapi.co/api/v2/pokemon/6/"},{"name":"squirtle","url":"https://pokeapi.co/api/v2/pokemon/7/"},{"name":"wartortle","url":"https://pokeapi.co/api/v2/pokemon/8/"},{"name":"blastoise","url":"https://pokeapi.co/api/v2/pokemon/9/"},{"name":"caterpie","url":"https://pokeapi.co/api/v2/pokemon/10/"}]}
 A função getingPokemonsUrl retorna um mapeamento do codigo acima só que pegando somente a url que é a url de cada pokemon.
