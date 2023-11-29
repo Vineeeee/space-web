@@ -86,60 +86,181 @@ try {
     }
 ```
 
-{"count":1281,"next":"https://pokeapi.co/api/v2/pokemon/?offset=10&limit=10","previous":null,"results":[{"name":"bulbasaur","url":"https://pokeapi.co/api/v2/pokemon/1/"},{"name":"ivysaur","url":"https://pokeapi.co/api/v2/pokemon/2/"},{"name":"venusaur","url":"https://pokeapi.co/api/v2/pokemon/3/"},{"name":"charmander","url":"https://pokeapi.co/api/v2/pokemon/4/"},{"name":"charmeleon","url":"https://pokeapi.co/api/v2/pokemon/5/"},{"name":"charizard","url":"https://pokeapi.co/api/v2/pokemon/6/"},{"name":"squirtle","url":"https://pokeapi.co/api/v2/pokemon/7/"},{"name":"wartortle","url":"https://pokeapi.co/api/v2/pokemon/8/"},{"name":"blastoise","url":"https://pokeapi.co/api/v2/pokemon/9/"},{"name":"caterpie","url":"https://pokeapi.co/api/v2/pokemon/10/"}]}
-A função getingPokemonsUrl retorna um mapeamento do codigo acima só que pegando somente a url que é a url de cada pokemon.
+No main.tsx dentro da pasta components criei o que vai ser a pagina principal que será entregue todos os componentes onde o usuario verá o conteudo
 
-A função getPokemons vai pegar de parametro o resultado do getingPokemonsUrl para mapea-lo e que no final retorna todas as URLs:
+```
+import styled from "styled-components"
+import "bootstrap/dist/css/bootstrap.css"
+import FirstImg from "../images/home/background-home-desktop.jpg"
+import SecondImg from "../images/destination/background-destination-desktop.jpg"
+import ThirdImg from "../images/crew/background-crew-desktop.jpg"
+import FourthImg from "../images/technology/background-technology-desktop.jpg"
+import FirstImgMobile from "../images/home/background-home-mobile.jpg"
+import SecondImgMobile from "../images/destination/background-destination-mobile.jpg"
+import ThirdImgMobile from "../images/crew/background-crew-mobile.jpg"
+import FourthImgMobile from "../images/technology/background-technology-mobile.jpg"
+import FirstImgTablet from "../images/home/background-home-tablet.jpg"
+import SecondImgTablet from "../images/destination/background-destination-tablet.jpg"
+import ThirdImgTablet from "../images/crew/background-crew-tablet.jpg"
+import FourthImgTablet from "../images/technology/background-technology-tablet.jpg"
+import Logo from "../images/shared - Copia/logo.svg"
+import { OptionsBar } from "./bar"
+import { Buttons } from "./buttons"
+import { Homepage } from "./homepage/homepage"
+import { useState } from "react"
+import { Destination } from "./destination"
+import { Crew } from "./crew"
+import { Technology } from "./technology"
+import { Squash as Hamburger } from 'hamburger-react'
+import { slideOutEllipticTop, slideOutEllipticTopBack } from "./fadeIn"
 
-async function getPokemons(params) {
-        const promises = params.map(async (element) => {
-          const uy = await fetch(element);
-          const gr = await uy.json();
-          return gr;
-        });
-        return Promise.all(promises);
+export type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
+
+export const Main = () => {
+
+    const [activeComponent, setActiveComponent] = useState<ComponentType>("ComponentHomePage");
+    const [backgroundImage, setBackgroundImage] = useState<string>(FirstImg)
+    const [backgroundMobile, setBackgroundMobile] = useState<string>(FirstImgMobile)
+    const [backgroundTablet, setbackgroundTablet] = useState<string>(FirstImgTablet)
+    const [activeButton, setActiveButton] = useState<ComponentType>("ComponentHomePage");
+    const [isOpen, setOpen] = useState<boolean>(false)
+    const [isClose, setClose] = useState<boolean>(false)
+
+    const handleClick = (component: ComponentType, background: string, backgroundMobile: string, backgroundTablet: string) => {
+        setActiveComponent(component);
+        setBackgroundImage(background)
+        setActiveButton(component);
+        setBackgroundMobile(backgroundMobile);
+        setbackgroundTablet(backgroundTablet);
+    };
+
+    return (<>
+        <BackgroundMain backgroundImage={backgroundImage}
+            backgroundImgMobile={backgroundMobile}
+            backgroundTablet={backgroundTablet}
+        >
+            <div className="d-flex p-0 pt-5 container-fluid justify-content-between">
+                <ImgLogo src={Logo} />
+                <OptionsBar>
+                    <DivButtonsContainer>
+                        <Buttons onClick={() => handleClick('ComponentHomePage', FirstImg, FirstImgMobile, FirstImgTablet)}
+                            className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
+
+                        <Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
+                            className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
+
+                        <Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
+                            className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
+
+                        <Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
+                            className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
+                    </DivButtonsContainer>
+                    <DivHamburguer>
+                        <Hamburger color="#ffffff" onToggle={toggled => {
+                            if (toggled) {
+                                setOpen(true)
+                                setClose(false)
+                            } else {
+                                setClose(true)
+                                setTimeout(() => {
+                                    setOpen(false)
+                                    setClose(false)
+                                }, 700);
+                            }
+                        }} />
+                    </DivHamburguer>
+                </OptionsBar>
+
+            </div>
+            <Menu toggled={isOpen} isClose={isClose}>
+                <Buttons onClick={() => handleClick('ComponentHomePage', FirstImg, FirstImgMobile, FirstImgTablet)}
+    className={activeButton === 'ComponentHomePage' ? 'active' : ''}><span className="fw-bold">00</span> HOME</Buttons>
+
+<Buttons onClick={() => handleClick('ComponentDestination', SecondImg, SecondImgMobile, SecondImgTablet)}
+    className={activeButton === 'ComponentDestination' ? 'active' : ''}><span className="fw-bold">01</span> DESTINATION</Buttons>
+
+<Buttons onClick={() => handleClick('ComponentCrew', ThirdImg, ThirdImgMobile, ThirdImgTablet)}
+    className={activeButton === 'ComponentCrew' ? 'active' : ''}><span className="fw-bold">02</span> CREW</Buttons>
+
+<Buttons onClick={() => handleClick('ComponentTechnology', FourthImg, FourthImgMobile, FourthImgTablet)}
+    className={activeButton === 'ComponentTechnology' ? 'active' : ''}><span className="fw-bold">03</span> TECHNOLOGY</Buttons>
+            </Menu>
+
+            {activeComponent === 'ComponentHomePage' && <Homepage handleClick={handleClick} />}
+            {activeComponent === 'ComponentDestination' && <Destination />}
+            {activeComponent === 'ComponentCrew' && <Crew />}
+            {activeComponent === 'ComponentTechnology' && <Technology />}
+
+        </BackgroundMain>
+
+    </>
+    )
 }
-Referente aos estados abaixo:
 
-    const {theme,setTheme} = useContext(ThemeContext)
-    const [poke,setPoke] = useState([{}])
-    const [newPoke,setNewPoke] = useState([{}])
-    const [load,setLoad] = useState(false)
-    const [pokeStorage, setPokeStorage] = useState({})
-O theme foi usado para usar o teme light e dark no togglerbutton O Poke foi usado para armazenar os pokemons retornados de getingPokemonsUrl e getPokemons O newPoke foi usado para armazenar os 10 novos pokemons após clicar em show more e dps armazena-lo no poke (utilizado na função addPokemon()):
+const BackgroundMain = styled.div<{ backgroundImage: string; backgroundImgMobile: string; backgroundTablet: string }>`
+min-height: 100vh;
+background-image: url(${props => props.backgroundImage});
+background-size: cover;
+background-position: center;
+transition: background 0.5s ease-in-out;
 
-async function addPokemon() {
-            const pokemonss = await getingPokemonsUrl(10,10)
-            const reponseJsonPokemons = await getPokemons(pokemonss)
-            const mapPokemon = reponseJsonPokemons.map((c)=>[{id: c.id,nome:c.name, img:c.sprites.versions
-                ["generation-v"]["black-white"].animated.front_default, type: c.types[0].type.name}])
-
-            setNewPoke(mapPokemon)
-            setPokeStorage((prevPoke) => prevPoke.concat(mapPokemon))
-            setPoke((prevPoke) => prevPoke.concat(mapPokemon))
-        }
-O load foi usado para apenas dar load na pagina O pokeStorage foi usado para armazenar os pokemons e serem usados como parametros de como vão filtrar os tipos de pokemon (usado no filterPokemon()):
-
-async function filterPokemon(selectedType){
-            if (selectedType === "0") {
-                fetchData()
-              } else {
-                const filteredPokemon = pokeStorage.filter(
-                  (pokemon) => pokemon[0].type === selectedType
-                );
-                setPoke(filteredPokemon);
-              }
-        }
-pokemon-page.js
-começo o codigo com o getingPokemon() para retornar o pokemon com a id usando o useParams ao clicar no link em volta da Li da home.js:
-
-async function getingPokemonsId(id){
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    const url = await response.json()
-    return url
+@media (max-width: 375px) {
+    background-image: url(${props => props.backgroundImgMobile});
 }
-variables-styled-components
-No variables-styled-components utilizei varios styles usando o styled components para estilizar nesse arquivo separado para não ocupar muita linha dos arquivos home.js e pokemon-page.js
 
-Passo a passo dos comandos para que possamos rodar o seu projeto no nosso computador
-Abrir o terminal, caso ele esteja assim: PS C:\Users\User\Desktop\pokemon-react>. Colocar cd pokemons e logo depois npm start
+@media (max-width: 768px) {
+    background-image: url(${props => props.backgroundTablet});
+}
+`
+
+const ImgLogo = styled.img`
+max-height: 50px;
+align-self: center;
+margin-left: 30px;
+`
+
+const DivButtonsContainer = styled.div`
+display: flex;
+gap: 50px;
+@media (max-width: 830px) {
+    display: none;
+  }
+`
+
+const DivHamburguer = styled.div`
+display: none;
+
+@media (max-width: 830px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-right: 10px;
+  }
+`
+
+const Menu = styled.div<{ toggled: boolean; isClose: boolean }>`
+display: none;
+
+@media (max-width: 830px) {
+    display: ${props => props.toggled ? "flex" : "none"};
+    width: 120px;
+    height: 180px;
+    background-color: #141029;
+    position: absolute;
+    right: 0;
+    border-radius: 15px;
+    transition: 0.2s ease-in-out;
+    flex-direction: column;
+    justify-content: center;
+    gap:15px;
+    z-index:1;
+    animation: ${props => props.isClose ?
+        slideOutEllipticTopBack : slideOutEllipticTop} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+`
+```
+
+
+
+## Passo a passo dos comandos para que possamos rodar o seu projeto no seu computador
+Abrir o terminal, e rodar npm run dev ou 
