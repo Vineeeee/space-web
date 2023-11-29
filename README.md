@@ -263,4 +263,4 @@ display: none;
 
 
 ## Passo a passo dos comandos para que possamos rodar o seu projeto no seu computador
-Abrir o terminal, e rodar npm run dev ou 
+Abrir o terminal, e rodar npm run dev ou entrar no link: https://vineeeee.github.io/space-web/
