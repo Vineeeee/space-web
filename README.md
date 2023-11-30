@@ -259,8 +259,48 @@ display: none;
   }
 `
 ```
+Aqui no ComponentType usei strings especificas para determinados componentes que irão ser adicionados no estado activeComponent dentro da função handleClick assim como os estados backgroundImage, backgroundTablet e backgroundMobile que pegam as imagens importadas
 
+os estados isOpen e isClose vai ser usados dentro do hamburguer icon
+```
+export type ComponentType = 'ComponentHomePage' | 'ComponentDestination' | 'ComponentCrew' | 'ComponentTechnology';
 
+export const Main = () => {
+
+    const [activeComponent, setActiveComponent] = useState<ComponentType>("ComponentHomePage");
+    const [backgroundImage, setBackgroundImage] = useState<string>(FirstImg)
+    const [backgroundMobile, setBackgroundMobile] = useState<string>(FirstImgMobile)
+    const [backgroundTablet, setbackgroundTablet] = useState<string>(FirstImgTablet)
+    const [activeButton, setActiveButton] = useState<ComponentType>("ComponentHomePage");
+    const [isOpen, setOpen] = useState<boolean>(false)
+    const [isClose, setClose] = useState<boolean>(false)
+
+    const handleClick = (component: ComponentType, background: string, backgroundMobile: string, backgroundTablet: string) => {
+        setActiveComponent(component);
+        setBackgroundImage(background)
+        setActiveButton(component);
+        setBackgroundMobile(backgroundMobile);
+        setbackgroundTablet(backgroundTablet);
+    };
+```
+Aqui criei uma div de loading quando o site tiver buscando o conteudo do server.
+```
+import "bootstrap/dist/css/bootstrap.css"
+import styled from "styled-components"
+
+export const Loading = () => {
+
+    return (
+        <DivLoading className="d-flex justify-content-center">
+            <div className="spinner-border text-white justify-content-center"></div>
+        </DivLoading>
+    )
+}
+
+const DivLoading = styled.div`
+height: 100vh;
+`
+```
 
 ## Passo a passo dos comandos para que possamos rodar o seu projeto no seu computador
 Abrir o terminal, e rodar npm run dev ou entrar no link: https://vineeeee.github.io/space-web/
