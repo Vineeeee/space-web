@@ -301,6 +301,207 @@ const DivLoading = styled.div`
 height: 100vh;
 `
 ```
+No buttons.tsx usei o type ButtonsProps para que ele possa herdar uma função onClick, children e className como opcional 
+```
+import styled from "styled-components"
+import "bootstrap/dist/css/bootstrap.css"
 
+type ButtonsProps = {
+        onClick: () => void;
+        children: React.ReactNode;
+        className?: string;
+      };
+
+export const Buttons: React.FC<ButtonsProps> = ({ onClick, children, className})=>{
+
+    return(
+        <Button onClick={onClick} className={className}>{children}</Button>
+    )
+}
+
+export const Button = styled.button`
+background: none;
+border: none;
+color: #ffffff;
+
+&.active {
+    --thickness: 4px;
+  box-sizing: border-box;
+  -webkit-clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% + var(--thickness)),
+    0 calc(100% + var(--thickness))
+  );
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% + var(--thickness)),
+    0 calc(100% + var(--thickness))
+  );
+  display: block;
+  font-weight: 900;
+  -webkit-mask-image: none;
+  position: relative;
+  text-transform: uppercase;
+
+  &:before {
+  background: #fff;
+  bottom: calc(var(--thickness) * -1);
+  content: "";
+  display: block;
+  height: var(--thickness);
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+  }
+
+`
+```
+## planets.tsx 
+```
+import { useState, useEffect } from "react"
+import MoonImg from "../../images/destination/image-moon.png"
+import EuropaImg from "../../images/destination/image-europa.png"
+import MarsImg from "../../images/destination/image-mars.png"
+import TitanImg from "../../images/destination/image-titan.png"
+import "bootstrap/dist/css/bootstrap.css"
+import { Destination } from "../destination";
+import { Buttons } from "../buttons"
+import { fetchData } from "../function"
+import { Loading } from "../loading"
+import { DivContainer, DivText, H1noFamily, H3Details, LiButtons, Paragraph, ParagraphDetails } from "./styledComponents"
+
+type Destination = {
+    id: number;
+    name: string;
+    description: string;
+    distance: string;
+    travel: string;
+};
+
+
+export const Planets = () => {
+    const [data, setData] = useState<Destination[]>([])
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<Error | null>(null);
+    const [selectedDestination, setSelectedDestination] = useState<string>("Moon");
+    const [Img, setImg] = useState<string>(MoonImg)
+
+    useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [data])
+
+    const handleButtonClick = (destinationName: string) => {
+    setSelectedDestination(destinationName);
+
+    switch (destinationName) {
+        case "Moon":
+            setImg(MoonImg);
+            break;
+        case "Europa":
+            setImg(EuropaImg);
+            break;
+        case "Mars":
+            setImg(MarsImg);
+            break;
+        case "Titan":
+            setImg(TitanImg);
+            break;
+        default:
+            setImg(MoonImg);
+    }
+};
+
+    return (
+        <div>
+            {loading ? (
+                <Loading />
+            ) : error ? (
+                <p>Erro: {error.message}</p>
+            ) : (
+                <DivContainer>
+                    <img src={Img} className={`w-50`} alt={selectedDestination} />
+                    <DivText className="d-flex flex-column pt-5">
+                        <ul className="d-flex">{((data as any)['destinations'] as Destination[]).map((destination: Destination) => (
+                                <LiButtons key={destination.id}>
+                                        <Buttons className={selectedDestination === destination.name ? 'active' : ''} onClick={() => {
+                                            handleButtonClick(destination.name)
+                                        }}>
+                                            {destination.name.toLocaleUpperCase()}
+                                        </Buttons>
+                                </LiButtons>
+                        ))}</ul>
+                        <H1noFamily>{selectedDestination.toLocaleUpperCase()}</H1noFamily>
+                        {((data as any)['destinations'] as Destination[]).filter((destination: Destination) =>
+                            destination.name === selectedDestination).map((destination: Destination) => (
+                                <DivText key={destination.id}>
+                                    <Paragraph className="w-50 pb-4">{destination.description}</Paragraph>
+                                    <hr className="text-bg-danger w-50" />
+                                    <div className="d-flex">
+                                        <div className="me-5">
+                                            <ParagraphDetails>AVG. DISTANCE</ParagraphDetails>
+                                            <H3Details>{destination.distance.toLocaleUpperCase()}</H3Details>
+                                        </div>
+                                        <div className="d-flex flex-column">
+                                            <ParagraphDetails>EST. TRAVEL TIME</ParagraphDetails>
+                                            <H3Details>{destination.travel.toLocaleUpperCase()}</H3Details>
+                                        </div>
+                                    </div>
+                                </DivText>
+                            ))}
+                    </DivText>
+                </DivContainer>
+    )
+}
+        </div >
+    )
+}
+```
+Aqui no planets.tsx usei o type Destination para que seja especificado o que deve retornar na resposta de uma requisição de um servidor
+```
+type Destination = {
+    id: number;
+    name: string;
+    description: string;
+    distance: string;
+    travel: string;
+};
+```
+No estado data será colocado a resposta da aquisição de um servidor, o estado loading será um teste de carregamento da pagina, o de error será o teste de erro, o de selectedDestination será de o planeta selecionado e o de Img o de imagem
+```
+    const [data, setData] = useState<Destination[]>([])
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<Error | null>(null);
+    const [selectedDestination, setSelectedDestination] = useState<string>("Moon");
+    const [Img, setImg] = useState<string>(MoonImg)
+```
+no useEffect coloco a função apresentada anteriormente e de parametro coloco os respectivos estados, e coloco o estado data pra ser "vigiado" durante o uso do useEffect 
+```
+ useEffect(() => { fetchData<Destination[]>("destination", setData, setLoading, setError) }, [data])
+```
+essa função handleButtonClick será colocada num button personalizado
+```
+    const handleButtonClick = (destinationName: string) => {
+    setSelectedDestination(destinationName);
+
+    switch (destinationName) {
+        case "Moon":
+            setImg(MoonImg);
+            break;
+        case "Europa":
+            setImg(EuropaImg);
+            break;
+        case "Mars":
+            setImg(MarsImg);
+            break;
+        case "Titan":
+            setImg(TitanImg);
+            break;
+        default:
+            setImg(MoonImg);
+    }
+```
 ## Passo a passo dos comandos para que possamos rodar o seu projeto no seu computador
 Abrir o terminal, e rodar npm run dev ou entrar no link: https://vineeeee.github.io/space-web/
